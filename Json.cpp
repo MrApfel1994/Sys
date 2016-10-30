@@ -139,7 +139,7 @@ const JsElement &JsObject::at(const std::string &s) const {
             return e.second;
         }
     }
-    throw std::out_of_range("No such element!");
+    throw std::out_of_range(std::string("No such element! \"") + s + "\"");
 }
 
 bool JsObject::operator==(const JsObject &rhs) const {
@@ -466,7 +466,7 @@ bool JsElement::Read(std::istream &in) {
         obj_ = new JsObject();
         return obj_->Read(in);
     } else {
-        if (isdigit(c)) {
+        if (isdigit(c) || c == '-') {
             type_ = JS_NUMBER;
             num_ = new JsNumber();
             return num_->Read(in);

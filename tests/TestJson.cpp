@@ -17,7 +17,7 @@ namespace {
                                 "\t\t\"image\": { \n"
                                 "\t\t\t\"src\": \"Images/Sun.png\",\n"
                                 "\t\t\t\"name\": \"sun1\",\n"
-                                "\t\t\t\"hOffset\": 250,\n"
+                                "\t\t\t\"hOffset\": -250,\n"
                                 "\t\t\t\"vOffset\": 250,\n"
                                 "\t\t\t\"alignment\": \"center\"\n"
                                 "\t\t},\n"
@@ -264,7 +264,7 @@ AGAIN:
     REQUIRE(image.Size() == 5);
     REQUIRE(image["src"] == "Images/Sun.png");
     REQUIRE(image["name"] == "sun1");
-    REQUIRE(image["hOffset"] == 250);
+    REQUIRE(image["hOffset"] == -250);
     REQUIRE(image["vOffset"] == 250);
     REQUIRE(image["alignment"] == "center");
     JsObject &text = (JsObject &)widget["text"];
