@@ -51,6 +51,18 @@ void JsString::Write(std::ostream &out, JsFlags flags) const { out << '\"' << va
 
 /////////////////////////////////////////////////////////////////
 
+JsArray::JsArray(const JsElement *v, size_t num) {
+    elements.assign(v, v + num);
+}
+
+JsArray::JsArray(const std::initializer_list<JsElement> &l) {
+    elements.assign(l);
+}
+
+JsArray::JsArray(std::initializer_list<JsElement> &&l) {
+    elements.assign(std::move(l));
+}
+
 const JsElement &JsArray::at(size_t i) const {
     if (i >= Size()) throw std::out_of_range("Index out of range!");
     return operator[](i);

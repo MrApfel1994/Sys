@@ -1,6 +1,7 @@
 #ifndef THREAD_POOL_H
 #define THREAD_POOL_H
 
+#ifndef __EMSCRIPTEN__
 #include <vector>
 #include <queue>
 #include <memory>
@@ -80,6 +81,7 @@ namespace sys {
             tasks.emplace([task]() { (*task)(); });
         }
         condition.notify_one();
+
         return res;
     }
 
@@ -94,4 +96,33 @@ namespace sys {
             worker.join();
     }
 }
+#else
+
+#include <future>
+
+namespace sys {
+    class ThreadPool {
+    public:
+        ThreadPool(size_t);
+
+        template<class F, class... Args>
+        auto enqueue(F &&f, Args &&... args)
+                -> std::future<typename std::result_of<F(Args...)>::type>;
+    };
+
+    // the constructor just launches some amount of workers
+    inline ThreadPool::ThreadPool(size_t threads){}
+
+    // add new work item to the pool
+    template<class F, class... Args>
+    auto ThreadPool::enqueue(F &&f, Args &&... args)
+    -> std::future<typename std::result_of<F(Args...)>::type> {
+
+        return std::future<typename std::result_of<F(Args...)>>(f(args...));
+    }
+}
+
+#endif
+
+
 #endif

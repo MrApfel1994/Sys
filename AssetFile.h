@@ -25,7 +25,8 @@ namespace sys {
         std::string name_;
         size_t size_, pos_override_;
     public:
-        AssetFile(const char *file_name, int mode);
+        AssetFile(const char *file_name, int mode = IN);
+        AssetFile(const std::string &file_name, int mode = IN) : AssetFile(file_name.c_str(), mode) {}
 
         ~AssetFile();
 

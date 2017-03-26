@@ -30,6 +30,7 @@ namespace sys {
 		}
 
 		R FireL(Args... args) {
+            if (delegates_.empty()) return R();
 			for (size_t i = 0; i < delegates_.size() - 1; i++) {
 				delegates_[i](args...);
 			}

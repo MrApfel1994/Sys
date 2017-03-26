@@ -52,6 +52,7 @@ struct JsString {
 
     JsString() {}
     JsString(const char *s) : val(s) {}
+    JsString(const std::string &s) : val(s) {}
 
     bool operator==(const JsString &rhs) const {
         return val == rhs.val;
@@ -63,6 +64,11 @@ struct JsString {
 
 struct JsArray {
     std::list<JsElement> elements;
+
+    JsArray(){}
+    JsArray(const JsElement *v, size_t num);
+    JsArray(const std::initializer_list<JsElement> &l);
+    JsArray(std::initializer_list<JsElement> &&l);
 
     JsElement &operator[](size_t i) {
         auto it = elements.begin();

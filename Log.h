@@ -8,9 +8,18 @@
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #else
 #include <cstdio>
+#include <ctime>
 //#define  LOGI(...) fprintf(stdout, "\n" __VA_ARGS__)
-#define  LOGI(...) {fprintf(stdout, __VA_ARGS__); fprintf(stdout, "\n");}
-#define  LOGE(...) fprintf(stderr, "\n" __VA_ARGS__)
+#define  LOGI(...) {                                                            \
+    char buff[27];                                                              \
+    time_t now = time(0);                                                       \
+    strftime(buff, sizeof(buff), "%Y-%m-%d %H:%M:%S.000 | ", localtime(&now));  \
+    fputs(buff, stdout); fprintf(stdout, __VA_ARGS__); fprintf(stdout, "\n"); }
+#define  LOGE(...) {                                                            \
+    char buff[27];                                                              \
+    time_t now = time(0);                                                       \
+    strftime(buff, sizeof(buff), "%Y-%m-%d %H:%M:%S.000 | ", localtime(&now));  \
+    fputs(buff, stderr); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n");}
 #endif
 
 #endif

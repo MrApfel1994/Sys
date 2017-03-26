@@ -8,23 +8,23 @@ ELSE(WIN32)
     set(LIBS pthread)
 ENDIF(WIN32)
 
-set(SOURCE_FILES 	Log.h
-                    ThreadPool.h
-                    ThreadWorker.h
-                    AssetFile.h
-                    AssetFile.cpp
-                    AssetFileIO.h
-                    AssetFileIO.cpp
-                    Pack.h
-                    Pack.cpp
-                    Json.h
-                    Json.cpp
-                    Delegate.h
-                    Signal_.h
-                    SpinLock.h
-                    Time_.h
-                    Time.cpp
-                	)
+set(SOURCE_FILES AssetFile.h
+                 AssetFile.cpp
+                 AssetFileIO.h
+                 AssetFileIO.cpp
+                 Delegate.h
+                 Json.h
+                 Json.cpp
+                 Log.h
+                 Optional.h
+                 Pack.h
+                 Pack.cpp
+                 Signal_.h
+                 SpinLock.h
+                 ThreadPool.h
+                 ThreadWorker.h
+                 Time_.h
+                 Time.cpp)
 
 list(APPEND ALL_SOURCE_FILES ${SOURCE_FILES})
 set_source_files_properties(${SOURCE_FILES} PROPERTIES HEADER_FILE_ONLY TRUE)
