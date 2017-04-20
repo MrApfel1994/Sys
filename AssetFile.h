@@ -4,11 +4,11 @@
 #include <cstddef>
 #include <string>
 
-#if !defined(__ANDROID__) 
-	#include <iosfwd>
+#if defined(__ANDROID__)
+	class AAsset;
+	class AAssetManager;
 #else
-    class AAsset;
-    class AAssetManager;
+	#include <iosfwd>
 #endif
 
 namespace sys {

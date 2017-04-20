@@ -13,16 +13,14 @@
 #include "AssetFile.h"
 #include "ThreadWorker.h"
 
-namespace {
-    //sys::ThreadWorker worker;
-}
+//#define IMITATE_LONG_LOAD
 
 void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
 	static sys::ThreadWorker worker;
 
     std::string url_str(url);
     worker.AddTask([url_str, arg, onload, onerror] {
-#if 1
+#if defined(IMITATE_LONG_LOAD)
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 #endif
         AssetFile in_file(url_str.c_str(), AssetFile::IN);

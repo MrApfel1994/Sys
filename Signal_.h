@@ -19,6 +19,10 @@ namespace sys {
 			return delegates_.size();
 		}
 
+		void clear() {
+			delegates_.clear();
+		}
+
 		R FireOne(size_t i, Args... args) {
 			return delegates_[i](args...);
 		}
