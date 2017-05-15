@@ -1,4 +1,6 @@
 
+#include <cstdio>
+
 void test_json();
 void test_optional();
 void test_pack();
@@ -9,5 +11,6 @@ int main() {
     test_optional();
     //test_pack();
     test_signal();
+    puts("OK");
 }
 

@@ -7,6 +7,7 @@
 
 #define assert_false(expr) assert(!expr)
 
+#ifndef __EMSCRIPTEN__
 #define assert_throws(expr) {           \
             bool _ = false;             \
             try {                       \
@@ -26,6 +27,10 @@
             }                           \
             assert(!_);                 \
         }
+#else
+#define assert_throws(expr) {}
+#define assert_nothrow(expr) {}
+#endif
 
 class Approx {
 public:
