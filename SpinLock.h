@@ -1,5 +1,4 @@
-#ifndef SPINLOCK_H
-#define SPINLOCK_H
+#pragma once
 
 #include <atomic>
 
@@ -23,5 +22,3 @@ namespace sys {
         }
     };
 }
-
-#endif // SPINLOCK_H

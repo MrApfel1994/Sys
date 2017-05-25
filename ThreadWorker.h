@@ -1,5 +1,4 @@
-#ifndef THREAD_WORKER_H
-#define THREAD_WORKER_H
+#pragma once
 
 #ifndef __EMSCRIPTEN__
 #include <queue>
@@ -99,5 +98,3 @@ namespace sys {
     };
 }
 #endif // __EMSCRIPTEN__
-
-#endif // THREAD_WORKER_H

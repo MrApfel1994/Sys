@@ -1,5 +1,4 @@
-#ifndef PACK_H
-#define PACK_H
+#pragma once
 
 #include <cstddef>
 #include <cstdint>
@@ -26,5 +25,3 @@ namespace sys {
 	bool ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size);
 	bool ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size);
 }
-
-#endif // PACK_H

@@ -1,5 +1,4 @@
-#ifndef OPTIONAL_H
-#define OPTIONAL_H
+#pragma once
 
 #include <new>
 #include <stdexcept>
@@ -96,5 +95,3 @@ namespace sys {
         }
     };
 }
-
-#endif // OPTIONAL_H

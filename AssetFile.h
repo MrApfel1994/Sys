@@ -1,5 +1,4 @@
-#ifndef ASSET_FILE_H
-#define ASSET_FILE_H
+#pragma once
 
 #include <cstddef>
 #include <string>
@@ -63,5 +62,3 @@ namespace sys {
     };
 }
 
-
-#endif /* ASSET_FILE_H */

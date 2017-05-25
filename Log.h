@@ -1,5 +1,4 @@
-#ifndef LOG_H
-#define LOG_H
+#pragma once
 
 #ifdef __ANDROID__
 #include <android/log.h>
@@ -26,4 +25,3 @@
     fputs(buff, stderr); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n");}
 #endif
 
-#endif

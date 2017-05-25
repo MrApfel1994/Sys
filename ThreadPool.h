@@ -1,5 +1,4 @@
-#ifndef THREAD_POOL_H
-#define THREAD_POOL_H
+#pragma once
 
 #ifndef __EMSCRIPTEN__
 #include <vector>
@@ -121,8 +120,5 @@ namespace sys {
         return std::future<typename std::result_of<F(Args...)>>(f(args...));
     }
 }
-
-#endif
-
 
 #endif

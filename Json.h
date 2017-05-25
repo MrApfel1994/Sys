@@ -1,5 +1,4 @@
-#ifndef JSON_H
-#define JSON_H
+#pragma once
 
 #include <iosfwd>
 #include <list>
@@ -196,4 +195,3 @@ public:
     void Write(std::ostream &out, JsFlags flags = JsFlags()) const;
 };
 
-#endif // JSON_H

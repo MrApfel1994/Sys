@@ -1,5 +1,4 @@
-#ifndef MY_SIGNAL_H
-#define MY_SIGNAL_H
+#pragma once
 
 #include <cstddef>
 
@@ -75,5 +74,3 @@ namespace sys {
 	};
 
 }
-
-#endif // MY_SIGNAL_H

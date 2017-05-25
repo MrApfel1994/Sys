@@ -1,5 +1,4 @@
-#ifndef ASSETFILEIO_H
-#define ASSETFILEIO_H
+#pragma once
 
 #include <utility>
 
@@ -24,4 +23,3 @@ namespace sys {
     }
 }
 
-#endif // ASSETFILEIO_H

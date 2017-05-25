@@ -1,5 +1,4 @@
-#ifndef DELEGATE_H
-#define DELEGATE_H
+#pragma once
 
 namespace sys {
 	template<typename TSignature>
@@ -73,5 +72,3 @@ namespace sys {
 	};
 
 }
-
-#endif // DELEGATE_H
