@@ -15,14 +15,16 @@
 
 //#define IMITATE_LONG_LOAD
 
-void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
-	static sys::ThreadWorker worker;
+namespace sys {
+    std::unique_ptr<sys::ThreadWorker> worker;
+}
 
+void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
     std::string url_str(url);
-    worker.AddTask([url_str, arg, onload, onerror] {
+    worker->AddTask([url_str, arg, onload, onerror] {
 #if defined(IMITATE_LONG_LOAD)
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-#endif
+#endif*/
         AssetFile in_file(url_str.c_str(), AssetFile::IN);
 		if (!in_file) {
 			if (onerror) {
@@ -39,6 +41,14 @@ void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, oner
             onload(arg, &buf[0], size);
         }
     });
+}
+
+void sys::InitWorker() {
+    worker.reset(new sys::ThreadWorker);
+}
+
+void sys::StopWorker() {
+    worker.reset();
 }
 
 #endif

@@ -21,5 +21,8 @@ namespace sys {
             delete funcs;
         });
     }
+
+    void InitWorker();
+    void StopWorker();
 }
 
