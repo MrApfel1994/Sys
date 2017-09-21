@@ -2,12 +2,15 @@
 
 #include <string>
 
+#include "DynLib.h"
+
 struct SDL_Renderer;
 struct SDL_Texture;
 struct SDL_Window;
 
 namespace sys {
     class Platform {
+		DynLib			sdl_lib_;
 #if defined(USE_GL_RENDER)
         void            *gl_ctx_ = nullptr;
 #elif defined(USE_SW_RENDER)
@@ -24,6 +27,8 @@ namespace sys {
             }
         }
         Platform &operator=(Platform &&rhs) {
+			Release();
+
 #if defined(USE_GL_RENDER)
             gl_ctx_ = rhs.gl_ctx_;
 #elif defined(USE_SW_RENDER)

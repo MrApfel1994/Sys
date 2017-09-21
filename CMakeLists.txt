@@ -6,7 +6,7 @@ IF(WIN32)
 ELSE(WIN32)
     set(CMAKE_CXX_STANDARD  11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -fPIC")
-    set(LIBS pthread)
+    set(LIBS dl pthread)
 ENDIF(WIN32)
 
 set(SOURCE_FILES AssetFile.h
@@ -14,6 +14,8 @@ set(SOURCE_FILES AssetFile.h
                  AssetFileIO.h
                  AssetFileIO.cpp
                  Delegate.h
+				 DynLib.h
+				 DynLib.cpp
                  Json.h
                  Json.cpp
                  Log.h
