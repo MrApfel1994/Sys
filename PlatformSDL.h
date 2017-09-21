@@ -34,6 +34,7 @@ namespace sys {
 #endif
             window_ = rhs.window_;
             rhs.window_ = nullptr;
+            return *this;
         }
         ~Platform();
 

@@ -24,7 +24,7 @@ void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, oner
     worker->AddTask([url_str, arg, onload, onerror] {
 #if defined(IMITATE_LONG_LOAD)
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-#endif*/
+#endif
         AssetFile in_file(url_str.c_str(), AssetFile::IN);
 		if (!in_file) {
 			if (onerror) {
