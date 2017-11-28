@@ -3,40 +3,44 @@
 #include "../Signal_.h"
 
 namespace {
-    double static_func(int param1, float param2) {
-        return param1 + param2;
+double static_func(int param1, float param2) {
+    return param1 + param2;
+}
+
+class AAA {
+public:
+    double member_func(int param1, float param2) {
+        return param1 - param2;
     }
 
-    class AAA {
-    public:
-        double member_func(int param1, float param2) {
-            return param1 - param2;
-        }
-
-        double member_const_func(int param1, float param2) const {
-            return param1 - 0.5f * param2;
-        }
-    };
+    double member_const_func(int param1, float param2) const {
+        return param1 - 0.5f * param2;
+    }
+};
 }
 
 void test_signal() {
 
-    {   // Delegate bind
+    {
+        // Delegate bind
 
-        {   // Static func
+        {
+            // Static func
             sys::Delegate<double(int, float)> del;
             del.Bind<::static_func>();
             assert(del(1, 2.4f) == Approx(3.4));
         }
 
-        {   // Member func
+        {
+            // Member func
             sys::Delegate<double(int, float)> del;
             AAA a;
             del.Bind<AAA, &AAA::member_func>(&a);
             assert(del(2, 1.4f) == Approx(0.6));
         }
 
-        {   // Member const func
+        {
+            // Member const func
             sys::Delegate<double(int, float)> del;
             AAA a;
             const AAA &_a = a;
@@ -45,7 +49,8 @@ void test_signal() {
         }
     }
 
-    {   // Signal connect
+    {
+        // Signal connect
         sys::Signal<double(int, float)> sig;
 
         AAA a;

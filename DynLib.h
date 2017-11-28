@@ -8,53 +8,53 @@ typedef HINSTANCE__* HINSTANCE;
 #endif
 
 namespace sys {
-	class DynLib {
+class DynLib {
 #if defined(WIN32)
-		HINSTANCE handle_;
+    HINSTANCE handle_;
 #elif defined(__linux__)
-        void *handle_;
+    void *handle_;
 #endif
-	public:
-		DynLib();
-		DynLib(const char *name);
+public:
+    DynLib();
+    DynLib(const char *name);
 
-		DynLib(const DynLib &rhs) = delete;
-		DynLib(DynLib &&rhs);
+    DynLib(const DynLib &rhs) = delete;
+    DynLib(DynLib &&rhs);
 
-		DynLib &operator=(const DynLib &rhs) = delete;
-		DynLib &operator=(DynLib &&rhs);
+    DynLib &operator=(const DynLib &rhs) = delete;
+    DynLib &operator=(DynLib &&rhs);
 
-		~DynLib();
+    ~DynLib();
 
-		operator bool() const;
+    operator bool() const;
 
-		void *GetProcAddress(const char *name);
-	};
+    void *GetProcAddress(const char *name);
+};
 }
 
 #if defined _WIN32 || defined __CYGWIN__
-    #ifdef __GNUC__
-        #define DLL_EXPORT __attribute__ ((dllexport))
-        #define DLL_IMPORT __attribute__ ((dllimport))
-    #else
-        #define DLL_EXPORT __declspec(dllexport)
-        #define DLL_IMPORT __declspec(dllimport)
-    #endif
-    #define DLL_LOCAL
+#ifdef __GNUC__
+#define DLL_EXPORT __attribute__ ((dllexport))
+#define DLL_IMPORT __attribute__ ((dllimport))
 #else
-    #if __GNUC__ >= 4
-        #define DLL_EXPORT __attribute__ ((visibility ("default")))
-        #define DLL_IMPORT __attribute__ ((visibility ("default")))
-        #define DLL_LOCAL  __attribute__ ((visibility ("hidden")))
-    #else
-        #define DLL_EXPORT
-        #define DLL_IMPORT
-        #define DLL_LOCAL
-    #endif
+#define DLL_EXPORT __declspec(dllexport)
+#define DLL_IMPORT __declspec(dllimport)
+#endif
+#define DLL_LOCAL
+#else
+#if __GNUC__ >= 4
+#define DLL_EXPORT __attribute__ ((visibility ("default")))
+#define DLL_IMPORT __attribute__ ((visibility ("default")))
+#define DLL_LOCAL  __attribute__ ((visibility ("hidden")))
+#else
+#define DLL_EXPORT
+#define DLL_IMPORT
+#define DLL_LOCAL
+#endif
 #endif
 
 #ifdef BUILD_DLL
-    #define DLL_PUBLIC DLL_EXPORT
+#define DLL_PUBLIC DLL_EXPORT
 #else
-    #define DLL_PUBLIC DLL_IMPORT
+#define DLL_PUBLIC DLL_IMPORT
 #endif

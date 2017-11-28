@@ -4,94 +4,96 @@
 #include <stdexcept>
 
 namespace sys {
-    template <typename T>
-    class Optional {
-        T *p_obj_;
-        char data_[sizeof(T)];
+template <typename T>
+class Optional {
+    T *p_obj_;
+    char data_[sizeof(T)];
 
-    public:
-        Optional() : p_obj_(nullptr) {}
-        Optional(const Optional &rhs) : p_obj_(nullptr) {
+public:
+    Optional() : p_obj_(nullptr) {}
+    Optional(const Optional &rhs) : p_obj_(nullptr) {
+        if (rhs.initialized()) {
+            p_obj_ = new(&data_[0]) T(*rhs.p_obj_);
+        }
+    }
+    Optional(Optional &&rhs) : p_obj_(nullptr) {
+        if (rhs.initialized()) {
+            p_obj_ = new(&data_[0]) T(std::move(*rhs.p_obj_));
+            rhs.p_obj_ = nullptr;
+        }
+    }
+    Optional(const T &rhs) {
+        p_obj_ = new (&data_[0]) T(rhs);
+    }
+    Optional(T &&rhs) {
+        p_obj_ = new (&data_[0]) T(std::move(rhs));
+    }
+    ~Optional() {
+        destroy();
+    }
+
+    Optional &operator=(const Optional &rhs) {
+        if (this != &rhs) {
+            destroy();
             if (rhs.initialized()) {
                 p_obj_ = new(&data_[0]) T(*rhs.p_obj_);
             }
         }
-        Optional(Optional &&rhs) : p_obj_(nullptr) {
+        return *this;
+    }
+
+    Optional &operator=(Optional &&rhs) {
+        if (this != &rhs) {
+            destroy();
             if (rhs.initialized()) {
                 p_obj_ = new(&data_[0]) T(std::move(*rhs.p_obj_));
                 rhs.p_obj_ = nullptr;
             }
         }
-        Optional(const T &rhs) {
-            p_obj_ = new (&data_[0]) T(rhs);
-        }
-        Optional(T &&rhs) {
-            p_obj_ = new (&data_[0]) T(std::move(rhs));
-        }
-        ~Optional() {
+        return *this;
+    }
+
+    Optional &operator=(const T &rhs) {
+        if (p_obj_ != &rhs) {
             destroy();
+            p_obj_ = new(&data_[0]) T(rhs);
         }
+        return *this;
+    }
 
-        Optional &operator=(const Optional &rhs) {
-            if (this != &rhs) {
-                destroy();
-                if (rhs.initialized()) {
-                    p_obj_ = new(&data_[0]) T(*rhs.p_obj_);
-                }
-            }
-            return *this;
+    Optional &operator=(T &&rhs) {
+        if (p_obj_ != &rhs) {
+            destroy();
+            p_obj_ = new(&data_[0]) T(std::move(rhs));
         }
+        return *this;
+    }
 
-        Optional &operator=(Optional &&rhs) {
-            if (this != &rhs) {
-                destroy();
-                if (rhs.initialized()) {
-                    p_obj_ = new(&data_[0]) T(std::move(*rhs.p_obj_));
-                    rhs.p_obj_ = nullptr;
-                }
-            }
-            return *this;
+    bool initialized() const {
+        return p_obj_ != nullptr;
+    }
+
+    void destroy() {
+        if (p_obj_) {
+            p_obj_->~T();
+            p_obj_ = nullptr;
         }
+    }
 
-        Optional &operator=(const T &rhs) {
-            if (p_obj_ != &rhs) {
-                destroy();
-                p_obj_ = new(&data_[0]) T(rhs);
-            }
-            return *this;
+    const T &GetValueOr(const T &default_val) {
+        if (p_obj_) {
+            return *p_obj_;
+        } else {
+            return default_val;
         }
+    }
 
-        Optional &operator=(T &&rhs) {
-            if (p_obj_ != &rhs) {
-                destroy();
-                p_obj_ = new(&data_[0]) T(std::move(rhs));
-            }
-            return *this;
+    const T &GetValue() {
+        if (p_obj_) {
+            return *p_obj_;
+        } else {
+            throw std::runtime_error("not initialized");
         }
-
-        bool initialized() const { return p_obj_ != nullptr; }
-
-        void destroy() {
-            if (p_obj_) {
-                p_obj_->~T();
-                p_obj_ = nullptr;
-            }
-        }
-
-        const T &GetValueOr(const T &default_val) {
-            if (p_obj_) {
-                return *p_obj_;
-            } else {
-                return default_val;
-            }
-        }
-
-        const T &GetValue() {
-            if (p_obj_) {
-                return *p_obj_;
-            } else {
-                throw std::runtime_error("not initialized");
-            }
-        }
-    };
+    }
+};
 }

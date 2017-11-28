@@ -5,77 +5,79 @@
 #include "../Json.h"
 
 namespace {
-    const char json_example[] = "{"
-            "\t\"widget\": {\n"
-            "\t\t\"debug\": \"on\",\n"
-            "\t\t\"window\": {\n"
-            "\t\t\t\"title\": \"Sample Konfabulator Widget\",\n"
-            "\t\t\t\"name\": \"main_window\",\n"
-            "\t\t\t\"width\": 500,\n"
-            "\t\t\t\"height\": 500\n"
-            "\t\t},\n"
-            "\t\t\"image\": { \n"
-            "\t\t\t\"src\": \"Images/Sun.png\",\n"
-            "\t\t\t\"name\": \"sun1\",\n"
-            "\t\t\t\"hOffset\": -250,\n"
-            "\t\t\t\"vOffset\": 250,\n"
-            "\t\t\t\"alignment\": \"center\"\n"
-            "\t\t},\n"
-            "\t\t\"text\": {\n"
-            "\t\t\t\"data\": \"Click Here\",\n"
-            "\t\t\t\"size\": 36,\n"
-            "\t\t\t\"style\": \"bold\",\n"
-            "\t\t\t\"name\": \"text1\",\n"
-            "\t\t\t\"hOffset\": 250,\n"
-            "\t\t\t\"vOffset\": 100,\n"
-            "\t\t\t\"alignment\": \"center\",\n"
-            "\t\t\t\"onMouseUp\": \"sun1.opacity = (sun1.opacity / 100) * 90;\"\n"
-            "\t\t}\n"
-            "\t}"
-            "}";
+const char json_example[] = "{"
+                            "\t\"widget\": {\n"
+                            "\t\t\"debug\": \"on\",\n"
+                            "\t\t\"window\": {\n"
+                            "\t\t\t\"title\": \"Sample Konfabulator Widget\",\n"
+                            "\t\t\t\"name\": \"main_window\",\n"
+                            "\t\t\t\"width\": 500,\n"
+                            "\t\t\t\"height\": 500\n"
+                            "\t\t},\n"
+                            "\t\t\"image\": { \n"
+                            "\t\t\t\"src\": \"Images/Sun.png\",\n"
+                            "\t\t\t\"name\": \"sun1\",\n"
+                            "\t\t\t\"hOffset\": -250,\n"
+                            "\t\t\t\"vOffset\": 250,\n"
+                            "\t\t\t\"alignment\": \"center\"\n"
+                            "\t\t},\n"
+                            "\t\t\"text\": {\n"
+                            "\t\t\t\"data\": \"Click Here\",\n"
+                            "\t\t\t\"size\": 36,\n"
+                            "\t\t\t\"style\": \"bold\",\n"
+                            "\t\t\t\"name\": \"text1\",\n"
+                            "\t\t\t\"hOffset\": 250,\n"
+                            "\t\t\t\"vOffset\": 100,\n"
+                            "\t\t\t\"alignment\": \"center\",\n"
+                            "\t\t\t\"onMouseUp\": \"sun1.opacity = (sun1.opacity / 100) * 90;\"\n"
+                            "\t\t}\n"
+                            "\t}"
+                            "}";
 
-    const char json_example2[] = "{\n"
-            "\t\"glossary\": {\n"
-            "\t\t\"title\": \"example glossary\",\n"
-            "\t\t\"GlossDiv\": {\n"
-            "\t\t\t\"title\": \"S\",\n"
-            "\t\t\t\"GlossList\": {\n"
-            "\t\t\t\t\"GlossEntry\": {\n"
-            "\t\t\t\t\t\"ID\": \"SGML\",\n"
-            "\t\t\t\t\t\"SortAs\": \"SGML\",\n"
-            "\t\t\t\t\t\"GlossTerm\": \"Standard Generalized Markup Language\",\n"
-            "\t\t\t\t\t\"Acronym\": \"SGML\",\n"
-            "\t\t\t\t\t\"Abbrev\": \"ISO 8879:1986\",\n"
-            "\t\t\t\t\t\"GlossDef\": {\n"
-            "\t\t\t\t\t\t\"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n"
-            "\t\t\t\t\t\t\"GlossSeeAlso\": [\"GML\", \"XML\"]\n"
-            "\t\t\t\t\t},\n"
-            "\t\t\t\t\t\"GlossSee\": \"markup\"\n"
-            "\t\t\t\t}\n"
-            "\t\t\t}\n"
-            "\t\t}\n"
-            "\t}\n"
-            "}";
+const char json_example2[] = "{\n"
+                             "\t\"glossary\": {\n"
+                             "\t\t\"title\": \"example glossary\",\n"
+                             "\t\t\"GlossDiv\": {\n"
+                             "\t\t\t\"title\": \"S\",\n"
+                             "\t\t\t\"GlossList\": {\n"
+                             "\t\t\t\t\"GlossEntry\": {\n"
+                             "\t\t\t\t\t\"ID\": \"SGML\",\n"
+                             "\t\t\t\t\t\"SortAs\": \"SGML\",\n"
+                             "\t\t\t\t\t\"GlossTerm\": \"Standard Generalized Markup Language\",\n"
+                             "\t\t\t\t\t\"Acronym\": \"SGML\",\n"
+                             "\t\t\t\t\t\"Abbrev\": \"ISO 8879:1986\",\n"
+                             "\t\t\t\t\t\"GlossDef\": {\n"
+                             "\t\t\t\t\t\t\"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n"
+                             "\t\t\t\t\t\t\"GlossSeeAlso\": [\"GML\", \"XML\"]\n"
+                             "\t\t\t\t\t},\n"
+                             "\t\t\t\t\t\"GlossSee\": \"markup\"\n"
+                             "\t\t\t\t}\n"
+                             "\t\t\t}\n"
+                             "\t\t}\n"
+                             "\t}\n"
+                             "}";
 
-    const char json_example3[] = "{\n"
-            "\t\"menu\": {\n"
-            "\t\t\"id\": \"file\",\n"
-            "\t\t\"value\": \"File\",\n"
-            "\t\t\"popup\": {\n"
-            "\t\t\t\"menuitem\": [\n"
-            "\t\t\t\t{\"value\": \"New\", \"onclick\": \"CreateNewDoc()\"},\n"
-            "\t\t\t\t{\"value\": \"Open\", \"onclick\": \"OpenDoc()\"},\n"
-            "\t\t\t\t{\"value\": \"Close\", \"onclick\": \"CloseDoc()\"}\n"
-            "\t\t\t]\n"
-            "\t\t}\n"
-            "\t}\n"
-            "}";
+const char json_example3[] = "{\n"
+                             "\t\"menu\": {\n"
+                             "\t\t\"id\": \"file\",\n"
+                             "\t\t\"value\": \"File\",\n"
+                             "\t\t\"popup\": {\n"
+                             "\t\t\t\"menuitem\": [\n"
+                             "\t\t\t\t{\"value\": \"New\", \"onclick\": \"CreateNewDoc()\"},\n"
+                             "\t\t\t\t{\"value\": \"Open\", \"onclick\": \"OpenDoc()\"},\n"
+                             "\t\t\t\t{\"value\": \"Close\", \"onclick\": \"CloseDoc()\"}\n"
+                             "\t\t\t]\n"
+                             "\t\t}\n"
+                             "\t}\n"
+                             "}";
 }
 
 void test_json() {
 
-    {   // Test types
-        {   // JsNumber
+    {
+        // Test types
+        {
+            // JsNumber
             JsNumber n1(3.1568);
             std::stringstream ss;
             n1.Write(ss);
@@ -88,7 +90,8 @@ void test_json() {
             assert(n1 == n2);
         }
 
-        {   // JsString
+        {
+            // JsString
             JsString s1("qwe123");
             std::stringstream ss;
             s1.Write(ss);
@@ -99,7 +102,8 @@ void test_json() {
             assert(s2 == "asd111");
         }
 
-        {   // JsArray
+        {
+            // JsArray
             JsArray a1;
             a1.Push(1);
             a1.Push(2);
@@ -131,7 +135,8 @@ void test_json() {
             assert(a3 != a5);
         }
 
-        {   // JsObject
+        {
+            // JsObject
             JsObject obj;
             obj["123"] = 143;
             obj["asdf"] = "asdfsdf";
@@ -161,7 +166,8 @@ void test_json() {
             assert(obj1 != obj3);
         }
 
-        {   // JsLiteral
+        {
+            // JsLiteral
             JsLiteral lit(JS_TRUE);
             assert(lit.val == JS_TRUE);
             std::stringstream ss;
@@ -176,7 +182,8 @@ void test_json() {
             assert(lit1 != lit3);
         }
 
-        {   // JsElement
+        {
+            // JsElement
             JsElement _el1(16);
             const JsElement &el1 = _el1;
             assert_nothrow((JsNumber)_el1);
@@ -244,13 +251,14 @@ void test_json() {
         }
     }
 
-    {   // Complex test1
+    {
+        // Complex test1
         bool flag = true;
         JsElement el(JS_NULL);
         std::stringstream ss(json_example);
         assert(el.Read(ss));
 
-    AGAIN1:
+AGAIN1:
         JsObject &root = (JsObject &)el;
         assert(root.Size() == 1);
         JsObject &widget = (JsObject &)root["widget"];
@@ -289,13 +297,14 @@ void test_json() {
         }
     }
 
-    {   // Complex test2
+    {
+        // Complex test2
         bool flag = true;
         JsElement el(JS_NULL);
         std::stringstream ss(json_example2);
         assert(el.Read(ss));
 
-    AGAIN2:
+AGAIN2:
         JsObject &root = (JsObject &)el;
         assert(root.Size() == 1);
         JsObject &glossary = (JsObject &)root["glossary"];
@@ -331,12 +340,13 @@ void test_json() {
         }
     }
 
-    {   // Complex test3
+    {
+        // Complex test3
         bool flag = true;
         JsElement el(JS_NULL);
         std::stringstream ss(json_example3);
 
-    AGAIN3:
+AGAIN3:
         assert(el.Read(ss));
 
         JsObject &root = (JsObject &)el;
@@ -372,8 +382,9 @@ void test_json() {
         }
     }
 
-    {   // Initializer lists
-        JsArray arr = {0.0, 0.0, 1.0, 2.0, "str", JsArray{"qwe", 4.0}};
+    {
+        // Initializer lists
+        JsArray arr = { 0.0, 0.0, 1.0, 2.0, "str", JsArray{"qwe", 4.0} };
         assert(arr.at(0) == 0.0);
         assert(arr.at(1) == 0.0);
         assert(arr.at(2) == 1.0);

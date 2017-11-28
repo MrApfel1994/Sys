@@ -47,7 +47,9 @@ bool JsString::Read(std::istream &in) {
     return true;
 }
 
-void JsString::Write(std::ostream &out, JsFlags flags) const { out << '\"' << val << '\"'; }
+void JsString::Write(std::ostream &out, JsFlags flags) const {
+    out << '\"' << val << '\"';
+}
 
 /////////////////////////////////////////////////////////////////
 
@@ -76,7 +78,7 @@ bool JsArray::operator==(const JsArray &rhs) const {
 bool JsArray::Read(std::istream &in) {
     char c;
     if (!in.read(&c, 1) || c != '[') {
-        std::cerr <<"JsArray::Read(): Expected '[' instead of " << c << std::endl;
+        std::cerr << "JsArray::Read(): Expected '[' instead of " << c << std::endl;
         return false;
     }
 
@@ -246,7 +248,7 @@ bool JsLiteral::Read(std::istream &in) {
     while (in.read(&c, 1) && isspace(c));
     in.seekg(-1, std::ios::cur);
 
-    char str[5]{};
+    char str[5] {};
     if (!in.read(str, 4)) return false;
 
     if (strcmp(str, "null") == 0) {
@@ -424,7 +426,7 @@ JsElement &JsElement::operator=(JsElement &&rhs) {
     p_ = rhs.p_;
     rhs.p_ = nullptr;
 
-	return *this;
+    return *this;
 }
 
 JsElement &JsElement::operator=(const JsElement &rhs) {

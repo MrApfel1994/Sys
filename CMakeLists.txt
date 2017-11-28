@@ -14,8 +14,8 @@ set(SOURCE_FILES AssetFile.h
                  AssetFileIO.h
                  AssetFileIO.cpp
                  Delegate.h
-				 DynLib.h
-				 DynLib.cpp
+                 DynLib.h
+                 DynLib.cpp
                  Json.h
                  Json.cpp
                  Log.h

@@ -8,19 +8,19 @@ enum JsType { JS_OBJECT, JS_ARRAY, JS_NUMBER, JS_LITERAL, JS_STRING };
 enum JsLiteralType { JS_TRUE, JS_FALSE, JS_NULL };
 
 struct JsFlags {
-	int ident_levels	: 1;
-	int use_new_lines	: 1;
-	int level			: 30;
+    int ident_levels : 1;
+    int use_new_lines : 1;
+    int level : 30;
 
-	JsFlags() : ident_levels(1), use_new_lines(1), level(0) {}
+    JsFlags() : ident_levels(1), use_new_lines(1), level(0) {}
 };
 
 struct JsElement;
 
 struct JsNumber {
-	double val;
+    double val;
 
-	JsNumber(double v = 0) : val(v) {}
+    JsNumber(double v = 0) : val(v) {}
 
     bool operator==(const JsNumber &rhs) const {
         return val == rhs.val;
@@ -64,7 +64,7 @@ struct JsString {
 struct JsArray {
     std::list<JsElement> elements;
 
-    JsArray(){}
+    JsArray() {}
     JsArray(const JsElement *v, size_t num);
     JsArray(const std::initializer_list<JsElement> &l);
     JsArray(std::initializer_list<JsElement> &&l);
@@ -168,7 +168,9 @@ public:
 
     ~JsElement();
 
-    JsType type() const { return type_; }
+    JsType type() const {
+        return type_;
+    }
 
     operator JsNumber &();
     operator JsString &();

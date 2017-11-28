@@ -3,9 +3,9 @@
 #include <chrono>
 
 namespace sys {
-    std::chrono::steady_clock::time_point init_time = std::chrono::steady_clock::now();
+std::chrono::steady_clock::time_point init_time = std::chrono::steady_clock::now();
 
-	unsigned int cached_time = 0;
+unsigned int cached_time = 0;
 }
 
 unsigned int sys::GetTicks() {

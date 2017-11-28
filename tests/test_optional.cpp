@@ -7,7 +7,8 @@
 #include "../Optional.h"
 
 void test_optional() {
-    {   // Create Optional
+    {
+        // Create Optional
         class MyObj {
             bool b;
         public:

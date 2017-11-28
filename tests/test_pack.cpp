@@ -8,15 +8,16 @@
 #include "../Pack.h"
 
 namespace {
-    std::vector<std::string> file_list = { "./constant.fs", "./src/CMakeLists.txt" };
+std::vector<std::string> file_list = { "./constant.fs", "./src/CMakeLists.txt" };
 }
 
 void test_pack() {
 
-    {   // Save/Load package
+    {
+        // Save/Load package
         sys::WritePackage("./my_pack.pack", file_list);
 
-        auto OnFile = [](const char *name, void *data, int size){
+        auto OnFile = [](const char *name, void *data, int size) {
             auto it = std::find(file_list.begin(), file_list.end(), name);
             assert(it != file_list.end());
 
@@ -37,12 +38,13 @@ void test_pack() {
         assert(std::string(list[1].name) == "./src/CMakeLists.txt");
     }
 
-    {   // Add package to AssetFile
+    {
+        // Add package to AssetFile
         sys::AssetFile::AddPackage("./my_pack.pack");
 
         sys::AssetFile in_file1("./constant.fs", sys::AssetFile::IN);
         std::ifstream in_file2("./constant.fs", std::ios::ate | std::ios::binary);
-        size_t size = (size_t) in_file2.tellg();
+        size_t size = (size_t)in_file2.tellg();
         in_file2.seekg(0, std::ios::beg);
         assert(in_file1.size() == size);
 

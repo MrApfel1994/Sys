@@ -6,9 +6,9 @@
 #include "DynLib.h"
 
 #if defined(__WIN32__) && !defined(__GNUC__)
-	#define SDLCALL __cdecl
+#define SDLCALL __cdecl
 #else
-	#define SDLCALL
+#define SDLCALL
 #endif
 
 #define SDL_WINDOWPOS_UNDEFINED_MASK    0x1FFF0000
@@ -16,13 +16,13 @@
 #define SDL_WINDOWPOS_UNDEFINED         SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)
 
 namespace sys {
-	const uint32_t SDL_INIT_VIDEO = 0x00000020;
+const uint32_t SDL_INIT_VIDEO = 0x00000020;
 
-	const uint32_t SDL_WINDOW_OPENGL = 0x00000002;
-	const uint32_t SDL_WINDOW_RESIZABLE = 0x00000020;
+const uint32_t SDL_WINDOW_OPENGL = 0x00000002;
+const uint32_t SDL_WINDOW_RESIZABLE = 0x00000020;
 
-	const uint32_t SDL_RENDERER_SOFTWARE = 0x00000001;
-	const uint32_t SDL_RENDERER_ACCELERATED = 0x00000002;
+const uint32_t SDL_RENDERER_SOFTWARE = 0x00000001;
+const uint32_t SDL_RENDERER_ACCELERATED = 0x00000002;
 }
 
 typedef uint32_t Uint32;
@@ -34,31 +34,31 @@ sys::Platform::~Platform() {
 int sys::Platform::Init(const std::string &window_name, int w, int h) {
     Release();
 
-	sdl_lib_ = DynLib{ "SDL2.dll" };
-	if (!sdl_lib_) {
-		sdl_lib_ = DynLib{ "SDL2.so" };
-	}
-	if (!sdl_lib_) {
-		return -1;
-	}
+    sdl_lib_ = DynLib{ "SDL2.dll" };
+    if (!sdl_lib_) {
+        sdl_lib_ = DynLib{ "SDL2.so" };
+    }
+    if (!sdl_lib_) {
+        return -1;
+    }
 
-	int SDLCALL (*SDL_Init)(Uint32 flags);
-	SDL_Window * SDLCALL (*SDL_CreateWindow)(const char *title, int x, int y, int w, int h, Uint32 flags);
-	void *SDLCALL (*SDL_GL_CreateContext)(SDL_Window *window);
-	int SDLCALL (*SDL_GL_SetSwapInterval)(int interval);
-	SDL_Renderer * SDLCALL (*SDL_CreateRenderer)(SDL_Window * window, int index, Uint32 flags);
-	SDL_Texture * SDLCALL (*SDL_CreateTexture)(SDL_Renderer * renderer, Uint32 format, int access, int w, int h);
+    int SDLCALL(*SDL_Init)(Uint32 flags);
+    SDL_Window * SDLCALL(*SDL_CreateWindow)(const char *title, int x, int y, int w, int h, Uint32 flags);
+    void *SDLCALL(*SDL_GL_CreateContext)(SDL_Window *window);
+    int SDLCALL(*SDL_GL_SetSwapInterval)(int interval);
+    SDL_Renderer * SDLCALL(*SDL_CreateRenderer)(SDL_Window * window, int index, Uint32 flags);
+    SDL_Texture * SDLCALL(*SDL_CreateTexture)(SDL_Renderer * renderer, Uint32 format, int access, int w, int h);
 
-	SDL_Init				= (decltype(SDL_Init))sdl_lib_.GetProcAddress("SDL_Init");
-	SDL_CreateWindow		= (decltype(SDL_CreateWindow))sdl_lib_.GetProcAddress("SDL_CreateWindow");
-	SDL_GL_CreateContext	= (decltype(SDL_GL_CreateContext))sdl_lib_.GetProcAddress("SDL_GL_CreateContext");
-	SDL_GL_SetSwapInterval	= (decltype(SDL_GL_SetSwapInterval))sdl_lib_.GetProcAddress("SDL_GL_SetSwapInterval");
-	SDL_CreateRenderer		= (decltype(SDL_CreateRenderer))sdl_lib_.GetProcAddress("SDL_CreateRenderer");
-	SDL_CreateTexture		= (decltype(SDL_CreateTexture))sdl_lib_.GetProcAddress("SDL_CreateTexture");
+    SDL_Init = (decltype(SDL_Init))sdl_lib_.GetProcAddress("SDL_Init");
+    SDL_CreateWindow = (decltype(SDL_CreateWindow))sdl_lib_.GetProcAddress("SDL_CreateWindow");
+    SDL_GL_CreateContext = (decltype(SDL_GL_CreateContext))sdl_lib_.GetProcAddress("SDL_GL_CreateContext");
+    SDL_GL_SetSwapInterval = (decltype(SDL_GL_SetSwapInterval))sdl_lib_.GetProcAddress("SDL_GL_SetSwapInterval");
+    SDL_CreateRenderer = (decltype(SDL_CreateRenderer))sdl_lib_.GetProcAddress("SDL_CreateRenderer");
+    SDL_CreateTexture = (decltype(SDL_CreateTexture))sdl_lib_.GetProcAddress("SDL_CreateTexture");
 
-	if (!SDL_Init || !SDL_CreateWindow || !SDL_GL_CreateContext || !SDL_GL_SetSwapInterval || !SDL_CreateRenderer || !SDL_CreateTexture) {
-		return -1;
-	}
+    if (!SDL_Init || !SDL_CreateWindow || !SDL_GL_CreateContext || !SDL_GL_SetSwapInterval || !SDL_CreateRenderer || !SDL_CreateTexture) {
+        return -1;
+    }
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         return -1;
@@ -89,17 +89,17 @@ int sys::Platform::Init(const std::string &window_name, int w, int h) {
 }
 
 void sys::Platform::Release() {
-	void SDLCALL (*SDL_GL_DeleteContext)(void *context);
-	void SDLCALL (*SDL_DestroyTexture)(SDL_Texture * texture);
-	void SDLCALL (*SDL_DestroyRenderer)(SDL_Renderer * renderer);
-	void SDLCALL (*SDL_DestroyWindow)(SDL_Window * window);
+    void SDLCALL(*SDL_GL_DeleteContext)(void *context);
+    void SDLCALL(*SDL_DestroyTexture)(SDL_Texture * texture);
+    void SDLCALL(*SDL_DestroyRenderer)(SDL_Renderer * renderer);
+    void SDLCALL(*SDL_DestroyWindow)(SDL_Window * window);
 
-	SDL_GL_DeleteContext	= (decltype(SDL_GL_DeleteContext))sdl_lib_.GetProcAddress("SDL_GL_DeleteContext");
-	SDL_DestroyTexture		= (decltype(SDL_DestroyTexture))sdl_lib_.GetProcAddress("SDL_DestroyTexture");
-	SDL_DestroyRenderer		= (decltype(SDL_DestroyRenderer))sdl_lib_.GetProcAddress("SDL_DestroyRenderer");
-	SDL_DestroyWindow		= (decltype(SDL_DestroyWindow))sdl_lib_.GetProcAddress("SDL_DestroyWindow");
+    SDL_GL_DeleteContext = (decltype(SDL_GL_DeleteContext))sdl_lib_.GetProcAddress("SDL_GL_DeleteContext");
+    SDL_DestroyTexture = (decltype(SDL_DestroyTexture))sdl_lib_.GetProcAddress("SDL_DestroyTexture");
+    SDL_DestroyRenderer = (decltype(SDL_DestroyRenderer))sdl_lib_.GetProcAddress("SDL_DestroyRenderer");
+    SDL_DestroyWindow = (decltype(SDL_DestroyWindow))sdl_lib_.GetProcAddress("SDL_DestroyWindow");
 
-	sdl_lib_ = {};
+    sdl_lib_ = {};
 
 #if defined(USE_GL_RENDER)
     if (gl_ctx_) {
