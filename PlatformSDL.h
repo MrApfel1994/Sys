@@ -26,6 +26,8 @@ public:
             throw std::runtime_error("Platform initialization error!");
         }
     }
+	Platform(const Platform &) = delete;
+	Platform &operator=(const Platform &) = delete;
     Platform &operator=(Platform &&rhs) {
         Release();
 

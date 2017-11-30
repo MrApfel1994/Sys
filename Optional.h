@@ -22,10 +22,10 @@ public:
             rhs.p_obj_ = nullptr;
         }
     }
-    Optional(const T &rhs) {
+    explicit Optional(const T &rhs) {
         p_obj_ = new (&data_[0]) T(rhs);
     }
-    Optional(T &&rhs) {
+    explicit Optional(T &&rhs) {
         p_obj_ = new (&data_[0]) T(std::move(rhs));
     }
     ~Optional() {

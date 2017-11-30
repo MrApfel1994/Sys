@@ -21,7 +21,7 @@ class CannotOpenFileException : public std::runtime_error {
 
     static std::ostringstream cnvt;
 public:
-    CannotOpenFileException(const char *file_name) : std::runtime_error("Cannot open file!"), file_name_(file_name) {}
+    explicit CannotOpenFileException(const char *file_name) : std::runtime_error("Cannot open file!"), file_name_(file_name) {}
     ~CannotOpenFileException() throw() {}
 
     const char *what() const throw() {

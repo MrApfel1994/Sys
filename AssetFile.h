@@ -16,16 +16,18 @@ class CannotOpenFileException;
 class AssetFile {
 #ifdef __ANDROID__
     static AAssetManager* asset_manager_;
-    AAsset* asset_file_;
+    AAsset* asset_file_ = nullptr;
 #else
-    std::fstream *file_stream_;
+    std::fstream *file_stream_ = nullptr;
 #endif
-    int mode_;
+    int mode_ = -1;
     std::string name_;
-    size_t size_, pos_override_;
+    size_t size_ = 0, pos_override_ = 0;
 public:
     AssetFile(const char *file_name, int mode = IN);
     AssetFile(const std::string &file_name, int mode = IN) : AssetFile(file_name.c_str(), mode) {}
+	AssetFile(const AssetFile &) = delete;
+	AssetFile &operator=(const AssetFile &) = delete;
 
     ~AssetFile();
 

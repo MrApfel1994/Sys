@@ -16,7 +16,7 @@ class DynLib {
 #endif
 public:
     DynLib();
-    DynLib(const char *name);
+    explicit DynLib(const char *name);
 
     DynLib(const DynLib &rhs) = delete;
     DynLib(DynLib &&rhs);

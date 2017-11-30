@@ -14,7 +14,7 @@ void sys::ReadPackage(const char *pack_name, onfile_func on_file) {
 
     std::vector<FileDesc> file_list;
 
-    size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
+    //size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
     for (unsigned i = 0; i < num_files; i++) {
         file_list.emplace_back();
         FileDesc &f = file_list.back();
@@ -67,7 +67,7 @@ std::vector<sys::FileDesc> sys::EnumFilesInPackage(const char *pack_name) {
 
     std::vector<FileDesc> file_list;
 
-    size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
+    //size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
     for (unsigned i = 0; i < num_files; i++) {
         file_list.emplace_back();
         FileDesc &f = file_list.back();
@@ -80,11 +80,11 @@ std::vector<sys::FileDesc> sys::EnumFilesInPackage(const char *pack_name) {
 
 bool sys::ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size) {
     AssetFile in_file(pack_name, AssetFile::IN);
-    size_t file_size = in_file.size();
+    //size_t file_size = in_file.size();
     uint32_t num_files;
     in_file.Read((char*)&num_files, sizeof(uint32_t));
 
-    size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
+    //size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
     for (unsigned i = 0; i < num_files; i++) {
         char name[120] {};
         in_file.Read(name, sizeof(name));
