@@ -10,7 +10,7 @@ struct SDL_Window;
 
 namespace sys {
 class Platform {
-    DynLib			sdl_lib_;
+    DynLib          sdl_lib_;
 #if defined(USE_GL_RENDER)
     void            *gl_ctx_ = nullptr;
 #elif defined(USE_SW_RENDER)
@@ -18,7 +18,7 @@ class Platform {
     SDL_Texture     *texture_ = nullptr;
 #endif
     int width_ = 0, height_ = 0;
-    SDL_Window		*window_ = nullptr;
+    SDL_Window      *window_ = nullptr;
 public:
     Platform() {}
     Platform(const std::string &window_name, int w, int h) {
@@ -26,8 +26,8 @@ public:
             throw std::runtime_error("Platform initialization error!");
         }
     }
-	Platform(const Platform &) = delete;
-	Platform &operator=(const Platform &) = delete;
+    Platform(const Platform &) = delete;
+    Platform &operator=(const Platform &) = delete;
     Platform &operator=(Platform &&rhs) {
         Release();
 

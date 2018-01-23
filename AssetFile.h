@@ -26,8 +26,8 @@ class AssetFile {
 public:
     AssetFile(const char *file_name, int mode = IN);
     AssetFile(const std::string &file_name, int mode = IN) : AssetFile(file_name.c_str(), mode) {}
-	AssetFile(const AssetFile &) = delete;
-	AssetFile &operator=(const AssetFile &) = delete;
+    AssetFile(const AssetFile &) = delete;
+    AssetFile &operator=(const AssetFile &) = delete;
 
     ~AssetFile();
 

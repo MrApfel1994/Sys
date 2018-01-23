@@ -146,11 +146,11 @@ private:
     JsType type_;
     union {
         void        *p_;
-        JsNumber	*num_;
-        JsString	*str_;
-        JsArray		*arr_;
-        JsObject	*obj_;
-        JsLiteral	*lit_;
+        JsNumber    *num_;
+        JsString    *str_;
+        JsArray     *arr_;
+        JsObject    *obj_;
+        JsLiteral   *lit_;
     };
 
     void DestroyValue();
