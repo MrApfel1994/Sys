@@ -75,7 +75,7 @@ std::vector<sys::FileDesc> sys::EnumFilesInPackage(const char *pack_name) {
         assert(f.off + f.size <= file_size);
     }
 
-    return std::move(file_list);
+    return file_list;
 }
 
 bool sys::ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size) {

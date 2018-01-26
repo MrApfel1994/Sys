@@ -11,7 +11,7 @@ namespace sys {
 class DynLib {
 #if defined(WIN32)
     HINSTANCE handle_;
-#elif defined(__linux__)
+#elif defined(__unix__) || defined(__APPLE__)
     void *handle_;
 #endif
 public:

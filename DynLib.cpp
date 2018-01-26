@@ -2,12 +2,12 @@
 
 #if defined(WIN32)
 #include "Windows.h"
-#elif defined(__linux__)
+#elif defined(__unix__) || defined(__APPLE__)
 #include "dlfcn.h"
 #endif
 
 sys::DynLib::DynLib() {
-#if defined(WIN32) || defined(__linux__)
+#if defined(WIN32) || defined(__unix__) || defined(__APPLE__)
     handle_ = NULL;
 #endif
 }
@@ -15,13 +15,13 @@ sys::DynLib::DynLib() {
 sys::DynLib::DynLib(const char *name) {
 #if defined(WIN32)
     handle_ = LoadLibraryA(name);
-#elif defined(__linux__)
+#elif defined(__unix__) || defined(__APPLE__)
     handle_ = dlopen(name, RTLD_LAZY);
 #endif
 }
 
 sys::DynLib::DynLib(DynLib &&rhs) {
-#if defined(WIN32) || defined(__linux__)
+#if defined(WIN32) || defined(__unix__) || defined(__APPLE__)
     handle_ = rhs.handle_;
     rhs.handle_ = NULL;
 #endif
@@ -35,7 +35,7 @@ sys::DynLib &sys::DynLib::operator=(DynLib &&rhs) {
     }
     handle_ = rhs.handle_;
     rhs.handle_ = NULL;
-#elif defined(__linux__)
+#elif defined(__unix__) || defined(__APPLE__)
     if (handle_) {
         dlclose(handle_);
         handle_ = NULL;
@@ -50,7 +50,7 @@ sys::DynLib::~DynLib() {
 #if defined(WIN32)
     FreeLibrary(handle_);
     handle_ = NULL;
-#elif defined(__linux__)
+#elif defined(__unix__) || defined(__APPLE__)
     if (handle_) {
         dlclose(handle_);
         handle_ = NULL;
@@ -59,15 +59,15 @@ sys::DynLib::~DynLib() {
 }
 
 sys::DynLib::operator bool() const {
-#if defined(WIN32) || defined(__linux__)
+#if defined(WIN32) || defined(__unix__) || defined(__APPLE__)
     return handle_ != NULL;
 #endif
 }
 
 void *sys::DynLib::GetProcAddress(const char *name) {
 #if defined(WIN32)
-    return ::GetProcAddress(handle_, name);
-#elif defined(__linux__)
+    return (void *)::GetProcAddress(handle_, name);
+#elif defined(__unix__) || defined(__APPLE__)
     return dlsym(handle_, name);
 #endif
 }

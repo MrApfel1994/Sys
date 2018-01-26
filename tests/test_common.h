@@ -11,7 +11,7 @@
 #define assert_throws(expr) {           \
             bool _ = false;             \
             try {                       \
-                expr;                   \
+                (void)expr;             \
             } catch (...) {             \
                 _ = true;               \
             }                           \
@@ -21,7 +21,7 @@
 #define assert_nothrow(expr) {          \
             bool _ = false;             \
             try {                       \
-                expr;                   \
+                (void)expr;             \
             } catch (...) {             \
                 _ = true;               \
             }                           \
