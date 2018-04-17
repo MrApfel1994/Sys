@@ -22,6 +22,7 @@ public:
 
     ~ThreadPool();
 
+    size_t num_workers() const { return workers.size(); }
 private:
     // need to keep track of threads so we can join them
     std::vector<std::thread> workers;
