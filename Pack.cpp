@@ -34,7 +34,7 @@ void sys::ReadPackage(const char *pack_name, onfile_func on_file) {
 #ifndef __ANDROID__
 void sys::WritePackage(const char *pack_name, std::vector<std::string> &file_list) {
     AssetFile out_file(pack_name, AssetFile::OUT);
-    uint32_t num_files = file_list.size();
+    uint32_t num_files = (uint32_t)file_list.size();
     out_file.Write((char*)&num_files, sizeof(uint32_t));
 
     size_t file_pos = sizeof(uint32_t) + num_files * (120 + 2 * sizeof(uint32_t));
@@ -43,7 +43,7 @@ void sys::WritePackage(const char *pack_name, std::vector<std::string> &file_lis
         AssetFile in_file(f.c_str(), AssetFile::IN);
         char name[120] {};
         strcpy(name, f.c_str());
-        uint32_t file_size = in_file.size();
+        uint32_t file_size = (uint32_t)in_file.size();
         out_file.Write(name, sizeof(name));
         out_file.Write((char*)&file_pos, sizeof(uint32_t));
         out_file.Write((char*)&file_size, sizeof(uint32_t));
