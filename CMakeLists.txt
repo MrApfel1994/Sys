@@ -21,6 +21,7 @@ set(SOURCE_FILES AssetFile.h
                  Json.h
                  Json.cpp
                  Log.h
+                 MemBuf.h
                  Optional.h
                  Pack.h
                  Pack.cpp
