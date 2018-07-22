@@ -26,14 +26,14 @@ void test_signal() {
 
         {
             // Static func
-            sys::Delegate<double(int, float)> del;
+            Sys::Delegate<double(int, float)> del;
             del.Bind<::static_func>();
             assert(del(1, 2.4f) == Approx(3.4));
         }
 
         {
             // Member func
-            sys::Delegate<double(int, float)> del;
+            Sys::Delegate<double(int, float)> del;
             AAA a;
             del.Bind<AAA, &AAA::member_func>(&a);
             assert(del(2, 1.4f) == Approx(0.6));
@@ -41,7 +41,7 @@ void test_signal() {
 
         {
             // Member const func
-            sys::Delegate<double(int, float)> del;
+            Sys::Delegate<double(int, float)> del;
             AAA a;
             const AAA &_a = a;
             del.Bind<AAA, &AAA::member_const_func>(&_a);
@@ -51,7 +51,7 @@ void test_signal() {
 
     {
         // Signal connect
-        sys::Signal<double(int, float)> sig;
+        Sys::Signal<double(int, float)> sig;
 
         AAA a;
 

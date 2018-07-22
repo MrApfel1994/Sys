@@ -8,7 +8,7 @@
 #include <future>
 #include <functional>
 
-namespace sys {
+namespace Sys {
 class ThreadWorker {
 public:
     ThreadWorker();
@@ -86,7 +86,7 @@ inline ThreadWorker::~ThreadWorker() {
 }
 }
 #else
-namespace sys {
+namespace Sys {
 class ThreadWorker {
 public:
     ThreadWorker() {}

@@ -15,7 +15,7 @@
 
 #include "Pack.h"
 
-namespace sys {
+namespace Sys {
 class CannotOpenFileException : public std::runtime_error {
     std::string file_name_;
 
@@ -33,20 +33,20 @@ public:
 
 struct Package {
     std::string name;
-    std::vector<sys::FileDesc> file_list;
+    std::vector<Sys::FileDesc> file_list;
 };
 
 std::vector<Package> added_packages;
 }
 
 
-std::ostringstream sys::CannotOpenFileException::cnvt;
+std::ostringstream Sys::CannotOpenFileException::cnvt;
 
 #ifdef __ANDROID__
-AAssetManager* sys::AssetFile::asset_manager_ = nullptr;
+AAssetManager* Sys::AssetFile::asset_manager_ = nullptr;
 #endif
 
-sys::AssetFile::AssetFile(const char *file_name, int mode) : mode_(mode), name_(file_name), size_(0), pos_override_(0) {
+Sys::AssetFile::AssetFile(const char *file_name, int mode) : mode_(mode), name_(file_name), size_(0), pos_override_(0) {
     using namespace std;
 
     if (mode == IN) {
@@ -95,7 +95,7 @@ sys::AssetFile::AssetFile(const char *file_name, int mode) : mode_(mode), name_(
                 if (fname == f.name) {
                     file_stream_->open(p.name, std::ios::in | std::ios::binary);
                     if (!file_stream_->good()) {
-                        throw sys::CannotOpenFileException(file_name);
+                        throw Sys::CannotOpenFileException(file_name);
                     }
                     file_stream_->seekg(f.off, ios::beg);
                     pos_override_ = f.off;
@@ -111,7 +111,7 @@ sys::AssetFile::AssetFile(const char *file_name, int mode) : mode_(mode), name_(
         file_stream_->seekg(0, std::ios::beg);
 OPENED:
         if (!file_stream_->good()) {
-            throw sys::CannotOpenFileException(file_name);
+            throw Sys::CannotOpenFileException(file_name);
         }
 #endif
     } else if (mode == OUT) {
@@ -128,7 +128,7 @@ OPENED:
     }
 }
 
-sys::AssetFile::~AssetFile() {
+Sys::AssetFile::~AssetFile() {
 #ifdef __ANDROID__
     AAsset_close(asset_file_);
 #else
@@ -136,7 +136,7 @@ sys::AssetFile::~AssetFile() {
 #endif
 }
 
-bool sys::AssetFile::Read(char *buf, size_t size) {
+bool Sys::AssetFile::Read(char *buf, size_t size) {
     assert(mode_ == IN);
 #ifdef __ANDROID__
     return !(AAsset_read(asset_file_, buf, size) < 0);
@@ -147,7 +147,7 @@ bool sys::AssetFile::Read(char *buf, size_t size) {
 #endif
 }
 
-void sys::AssetFile::Seek(size_t pos) {
+void Sys::AssetFile::Seek(size_t pos) {
 #ifdef __ANDROID__
     AAsset_seek(asset_file_, pos, SEEK_SET);
 #else
@@ -155,7 +155,7 @@ void sys::AssetFile::Seek(size_t pos) {
 #endif
 }
 
-sys::AssetFile::operator bool() {
+Sys::AssetFile::operator bool() {
 #ifdef __ANDROID__
     return bool(AAsset_getLength(asset_file_));
 #else
@@ -163,19 +163,19 @@ sys::AssetFile::operator bool() {
 #endif
 }
 
-bool sys::AssetFile::ReadFloat(float &f) {
+bool Sys::AssetFile::ReadFloat(float &f) {
     return this->Read((char *)&f, sizeof(float));
 }
 
 #ifndef __ANDROID__
-bool sys::AssetFile::Write(const char *buf, size_t size) {
+bool Sys::AssetFile::Write(const char *buf, size_t size) {
     assert(file_stream_);
     file_stream_->write(buf, size);
     return bool(*file_stream_);
 }
 #endif
 
-size_t sys::AssetFile::pos() {
+size_t Sys::AssetFile::pos() {
 #ifdef __ANDROID__
     return AAsset_seek(asset_file_, 0, SEEK_CUR);
 #else
@@ -184,15 +184,15 @@ size_t sys::AssetFile::pos() {
 }
 
 #ifdef __ANDROID__
-void sys::AssetFile::InitAssetManager(class AAssetManager* am) {
+void Sys::AssetFile::InitAssetManager(class AAssetManager* am) {
     asset_manager_ = am;
 }
-int32_t sys::AssetFile::descriptor(off_t *start, off_t *len) {
+int32_t Sys::AssetFile::descriptor(off_t *start, off_t *len) {
     return AAsset_openFileDescriptor(asset_file_, start, len);
 }
 #endif
 
-void sys::AssetFile::AddPackage(const char *name) {
+void Sys::AssetFile::AddPackage(const char *name) {
     size_t ln = strlen(name);
     if (ln < 6 || name[ln - 5] != '.' || name[ln - 4] != 'p' || name[ln - 3] != 'a' ||
             name[ln - 2] != 'c' || name[ln - 1] != 'k') {
@@ -201,10 +201,10 @@ void sys::AssetFile::AddPackage(const char *name) {
     added_packages.emplace_back();
     Package &p = added_packages.back();
     p.name = name;
-    p.file_list = sys::EnumFilesInPackage(name);
+    p.file_list = Sys::EnumFilesInPackage(name);
 }
 
-void sys::AssetFile::RemovePackage(const char *name) {
+void Sys::AssetFile::RemovePackage(const char *name) {
     for (auto it = added_packages.begin(); it != added_packages.end(); ++it) {
         if (it->name == name) {
             added_packages.erase(it);

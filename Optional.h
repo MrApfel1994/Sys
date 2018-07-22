@@ -3,7 +3,7 @@
 #include <new>
 #include <stdexcept>
 
-namespace sys {
+namespace Sys {
 template <typename T>
 class Optional {
     T *p_obj_;

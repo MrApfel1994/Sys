@@ -2,7 +2,7 @@
 
 #include <atomic>
 
-namespace sys {
+namespace Sys {
 class SpinlockMutex {
     std::atomic_flag flag_;
 public:

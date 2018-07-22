@@ -3,7 +3,7 @@
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 
-void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
+void Sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
     emscripten_async_wget_data(url, arg, onload, onerror);
 }
 #else
@@ -15,11 +15,11 @@ void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, oner
 
 //#define IMITATE_LONG_LOAD
 
-namespace sys {
-std::unique_ptr<sys::ThreadWorker> worker;
+namespace Sys {
+std::unique_ptr<Sys::ThreadWorker> worker;
 }
 
-void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
+void Sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, onerror_func onerror) {
     std::string url_str(url);
     worker->AddTask([url_str, arg, onload, onerror] {
 #if defined(IMITATE_LONG_LOAD)
@@ -43,11 +43,11 @@ void sys::LoadAssetComplete(const char *url, void *arg, onload_func onload, oner
     });
 }
 
-void sys::InitWorker() {
-    worker.reset(new sys::ThreadWorker);
+void Sys::InitWorker() {
+    worker.reset(new Sys::ThreadWorker);
 }
 
-void sys::StopWorker() {
+void Sys::StopWorker() {
     worker.reset();
 }
 

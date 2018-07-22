@@ -15,13 +15,13 @@ void test_pack() {
 
     {
         // Save/Load package
-        sys::WritePackage("./my_pack.pack", file_list);
+        Sys::WritePackage("./my_pack.pack", file_list);
 
         auto OnFile = [](const char *name, void *data, int size) {
             auto it = std::find(file_list.begin(), file_list.end(), name);
             assert(it != file_list.end());
 
-            sys::AssetFile in_file(name, sys::AssetFile::IN);
+            Sys::AssetFile in_file(name, Sys::AssetFile::IN);
             assert(in_file.size() == size);
 
             std::unique_ptr<char[]> buf(new char[size]);
@@ -30,9 +30,9 @@ void test_pack() {
             const char *p2 = buf.get();
             assert(memcmp(p1, p2, (size_t)size) == 0);
         };
-        sys::ReadPackage("./my_pack.pack", OnFile);
+        Sys::ReadPackage("./my_pack.pack", OnFile);
 
-        std::vector<sys::FileDesc> list = sys::EnumFilesInPackage("./my_pack.pack");
+        std::vector<Sys::FileDesc> list = Sys::EnumFilesInPackage("./my_pack.pack");
 
         assert(std::string(list[0].name) == "./constant.fs");
         assert(std::string(list[1].name) == "./src/CMakeLists.txt");
@@ -40,9 +40,9 @@ void test_pack() {
 
     {
         // Add package to AssetFile
-        sys::AssetFile::AddPackage("./my_pack.pack");
+        Sys::AssetFile::AddPackage("./my_pack.pack");
 
-        sys::AssetFile in_file1("./constant.fs", sys::AssetFile::IN);
+        Sys::AssetFile in_file1("./constant.fs", Sys::AssetFile::IN);
         std::ifstream in_file2("./constant.fs", std::ios::ate | std::ios::binary);
         size_t size = (size_t)in_file2.tellg();
         in_file2.seekg(0, std::ios::beg);

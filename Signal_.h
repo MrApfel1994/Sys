@@ -6,7 +6,7 @@
 
 #include "Delegate.h"
 
-namespace sys {
+namespace Sys {
 template<typename TSignature>
 class Signal;
 

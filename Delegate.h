@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sys {
+namespace Sys {
 template<typename TSignature>
 class Delegate;
 

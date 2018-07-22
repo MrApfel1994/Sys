@@ -31,9 +31,9 @@ void test_optional() {
             }
         };
 
-        sys::Optional<MyObj> v1;
+        Sys::Optional<MyObj> v1;
         assert_false(v1.initialized());
-        sys::Optional<MyObj> v2(MyObj(11));
+        Sys::Optional<MyObj> v2(MyObj(11));
         assert(v2.initialized());
         v1 = v2;
         assert(v1.initialized());

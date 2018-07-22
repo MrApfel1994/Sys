@@ -11,7 +11,7 @@
 #include <functional>
 #include <stdexcept>
 
-namespace sys {
+namespace Sys {
 class ThreadPool {
 public:
     explicit ThreadPool(size_t);
@@ -102,7 +102,7 @@ inline ThreadPool::~ThreadPool() {
 
 #include <future>
 
-namespace sys {
+namespace Sys {
 class ThreadPool {
 public:
     ThreadPool(size_t);

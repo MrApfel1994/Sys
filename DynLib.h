@@ -7,7 +7,7 @@ typedef HINSTANCE__* HINSTANCE;
 #endif
 #endif
 
-namespace sys {
+namespace Sys {
 class DynLib {
 #if defined(WIN32)
     HINSTANCE handle_;

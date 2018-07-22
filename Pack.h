@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace sys {
+namespace Sys {
 typedef void(*onfile_func)(const char *name, void *data, int size);
 
 struct FileDesc {

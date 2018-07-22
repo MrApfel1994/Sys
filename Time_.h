@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace sys {
+namespace Sys {
 unsigned int GetTicks();
 uint64_t GetTimeNs();
 extern unsigned int cached_time;

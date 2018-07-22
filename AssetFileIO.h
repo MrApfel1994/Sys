@@ -2,7 +2,7 @@
 
 #include <utility>
 
-namespace sys {
+namespace Sys {
 typedef void(*onload_func)(void *arg, void *data, int size);
 typedef void(*onerror_func)(void *arg);
 

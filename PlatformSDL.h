@@ -8,7 +8,7 @@ struct SDL_Renderer;
 struct SDL_Texture;
 struct SDL_Window;
 
-namespace sys {
+namespace Sys {
 class Platform {
     DynLib          sdl_lib_;
 #if defined(USE_GL_RENDER)

@@ -15,7 +15,7 @@
 #define SDL_WINDOWPOS_UNDEFINED_DISPLAY(X)  (SDL_WINDOWPOS_UNDEFINED_MASK|(X))
 #define SDL_WINDOWPOS_UNDEFINED         SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)
 
-namespace sys {
+namespace Sys {
 const uint32_t SDL_INIT_VIDEO = 0x00000020;
 
 const uint32_t SDL_WINDOW_OPENGL = 0x00000002;
@@ -27,11 +27,11 @@ const uint32_t SDL_RENDERER_ACCELERATED = 0x00000002;
 
 typedef uint32_t Uint32;
 
-sys::Platform::~Platform() {
+Sys::Platform::~Platform() {
     Release();
 }
 
-int sys::Platform::Init(const std::string &window_name, int w, int h) {
+int Sys::Platform::Init(const std::string &window_name, int w, int h) {
     Release();
 
     sdl_lib_ = DynLib{ "SDL2.dll" };
@@ -83,12 +83,12 @@ int sys::Platform::Init(const std::string &window_name, int w, int h) {
     if (!texture_) return -1;
 #endif
 
-    sys::InitWorker();
+    Sys::InitWorker();
 
     return 0;
 }
 
-void sys::Platform::Release() {
+void Sys::Platform::Release() {
     void SDLCALL(*SDL_GL_DeleteContext)(void *context);
     void SDLCALL(*SDL_DestroyTexture)(SDL_Texture * texture);
     void SDLCALL(*SDL_DestroyRenderer)(SDL_Renderer * renderer);
@@ -124,10 +124,10 @@ void sys::Platform::Release() {
         //SDL_Quit();
     }
 
-    sys::StopWorker();
+    Sys::StopWorker();
 }
 
-void sys::Platform::DrawPixels(const void *pixels) {
+void Sys::Platform::DrawPixels(const void *pixels) {
 #if defined(USE_GL_RENDER)
 #elif defined(USE_SW_RENDER)
     if (pixels) {
@@ -138,7 +138,7 @@ void sys::Platform::DrawPixels(const void *pixels) {
 #endif
 }
 
-void sys::Platform::EndFrame() {
+void Sys::Platform::EndFrame() {
 #if defined(USE_GL_RENDER)
     //SDL_GL_SwapWindow(window_);
 #elif defined(USE_SW_RENDER)

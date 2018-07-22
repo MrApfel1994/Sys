@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.4)
-project(sys)
+project(Sys)
 
 IF(WIN32)
 
@@ -38,10 +38,10 @@ list(APPEND ALL_SOURCE_FILES ${SOURCE_FILES})
 set_source_files_properties(${SOURCE_FILES} PROPERTIES HEADER_FILE_ONLY TRUE)
 source_group("src" FILES ${SOURCE_FILES})
 
-list(APPEND ALL_SOURCE_FILES _sys.cpp)
-source_group("src" FILES _sys.cpp)
+list(APPEND ALL_SOURCE_FILES _Sys.cpp)
+source_group("src" FILES _Sys.cpp)
 
-add_library(sys STATIC ${ALL_SOURCE_FILES})
-target_link_libraries(sys ${LIBS})
+add_library(Sys STATIC ${ALL_SOURCE_FILES})
+target_link_libraries(Sys ${LIBS})
 
 add_subdirectory(tests)

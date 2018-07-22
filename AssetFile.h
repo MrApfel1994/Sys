@@ -10,7 +10,7 @@ class AAssetManager;
 #include <iosfwd>
 #endif
 
-namespace sys {
+namespace Sys {
 class CannotOpenFileException;
 
 class AssetFile {

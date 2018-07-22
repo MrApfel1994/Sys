@@ -6,7 +6,7 @@
 
 #include "AssetFile.h"
 
-void sys::ReadPackage(const char *pack_name, onfile_func on_file) {
+void Sys::ReadPackage(const char *pack_name, onfile_func on_file) {
     AssetFile in_file(pack_name, AssetFile::IN);
     size_t file_size = in_file.size();
     uint32_t num_files;
@@ -32,7 +32,7 @@ void sys::ReadPackage(const char *pack_name, onfile_func on_file) {
 }
 
 #ifndef __ANDROID__
-void sys::WritePackage(const char *pack_name, std::vector<std::string> &file_list) {
+void Sys::WritePackage(const char *pack_name, std::vector<std::string> &file_list) {
     AssetFile out_file(pack_name, AssetFile::OUT);
     uint32_t num_files = (uint32_t)file_list.size();
     out_file.Write((char*)&num_files, sizeof(uint32_t));
@@ -59,7 +59,7 @@ void sys::WritePackage(const char *pack_name, std::vector<std::string> &file_lis
 }
 #endif
 
-std::vector<sys::FileDesc> sys::EnumFilesInPackage(const char *pack_name) {
+std::vector<Sys::FileDesc> Sys::EnumFilesInPackage(const char *pack_name) {
     AssetFile in_file(pack_name, AssetFile::IN);
     size_t file_size = in_file.size();
     uint32_t num_files;
@@ -78,7 +78,7 @@ std::vector<sys::FileDesc> sys::EnumFilesInPackage(const char *pack_name) {
     return file_list;
 }
 
-bool sys::ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size) {
+bool Sys::ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size) {
     AssetFile in_file(pack_name, AssetFile::IN);
     //size_t file_size = in_file.size();
     uint32_t num_files;
