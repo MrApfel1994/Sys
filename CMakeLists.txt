@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(Sys)
 
+OPTION(ENABLE_UNITYBUILD "Enable compilation of one large cpp file" ON)
+
 IF(WIN32)
 
 ELSE(WIN32)
@@ -36,11 +38,15 @@ set(SOURCE_FILES AssetFile.h
                  Time.cpp)
 
 list(APPEND ALL_SOURCE_FILES ${SOURCE_FILES})
-set_source_files_properties(${SOURCE_FILES} PROPERTIES HEADER_FILE_ONLY TRUE)
-source_group("src" FILES ${SOURCE_FILES})
 
-list(APPEND ALL_SOURCE_FILES _Sys.cpp)
-source_group("src" FILES _Sys.cpp)
+# enable or disable unity build
+if(ENABLE_UNITYBUILD)
+    set_source_files_properties(${SOURCE_FILES} PROPERTIES HEADER_FILE_ONLY TRUE)
+    source_group("src" FILES ${SOURCE_FILES})
+
+    list(APPEND ALL_SOURCE_FILES _Sys.cpp)
+    source_group("src" FILES _Sys.cpp)
+endif()
 
 add_library(Sys STATIC ${ALL_SOURCE_FILES})
 target_link_libraries(Sys ${LIBS})

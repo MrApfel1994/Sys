@@ -8,7 +8,7 @@
 
 Sys::DynLib::DynLib() {
 #if defined(WIN32) || defined(__unix__) || defined(__APPLE__)
-    handle_ = NULL;
+    handle_ = nullptr;
 #endif
 }
 
@@ -23,7 +23,7 @@ Sys::DynLib::DynLib(const char *name) {
 Sys::DynLib::DynLib(DynLib &&rhs) {
 #if defined(WIN32) || defined(__unix__) || defined(__APPLE__)
     handle_ = rhs.handle_;
-    rhs.handle_ = NULL;
+    rhs.handle_ = nullptr;
 #endif
 }
 
@@ -31,17 +31,17 @@ Sys::DynLib &Sys::DynLib::operator=(DynLib &&rhs) {
 #if defined(WIN32)
     if (handle_) {
         FreeLibrary(handle_);
-        handle_ = NULL;
+        handle_ = nullptr;
     }
     handle_ = rhs.handle_;
-    rhs.handle_ = NULL;
+    rhs.handle_ = nullptr;
 #elif defined(__unix__) || defined(__APPLE__)
     if (handle_) {
         dlclose(handle_);
-        handle_ = NULL;
+        handle_ = nullptr;
     }
     handle_ = rhs.handle_;
-    rhs.handle_ = NULL;
+    rhs.handle_ = nullptr;
 #endif
     return *this;
 }
@@ -49,18 +49,18 @@ Sys::DynLib &Sys::DynLib::operator=(DynLib &&rhs) {
 Sys::DynLib::~DynLib() {
 #if defined(WIN32)
     FreeLibrary(handle_);
-    handle_ = NULL;
+    handle_ = nullptr;
 #elif defined(__unix__) || defined(__APPLE__)
     if (handle_) {
         dlclose(handle_);
-        handle_ = NULL;
+        handle_ = nullptr;
     }
 #endif
 }
 
 Sys::DynLib::operator bool() const {
 #if defined(WIN32) || defined(__unix__) || defined(__APPLE__)
-    return handle_ != NULL;
+    return handle_ != nullptr;
 #endif
 }
 
