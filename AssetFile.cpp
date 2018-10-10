@@ -55,6 +55,10 @@ Sys::AssetFile::AssetFile(const char *file_name, int mode) : mode_(mode), name_(
             file_name += 2;
         }
 
+        if (strstr(file_name, "assets/") == file_name) {
+            file_name += 7;
+        }
+
         string full_path;
         if (strstr(file_name, "..")) {
             char path[100];
