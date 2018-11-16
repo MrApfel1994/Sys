@@ -78,7 +78,7 @@ std::vector<Sys::FileDesc> Sys::EnumFilesInPackage(const char *pack_name) {
     return file_list;
 }
 
-bool Sys::ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t size) {
+bool Sys::ReadFromPackage(const char *pack_name, const char *fname, size_t pos, char *buf, size_t /*size*/) {
     AssetFile in_file(pack_name, AssetFile::IN);
     //size_t file_size = in_file.size();
     uint32_t num_files;

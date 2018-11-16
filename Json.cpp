@@ -16,7 +16,7 @@ bool JsNumber::Read(std::istream &in) {
     return bool(in >> val);
 }
 
-void JsNumber::Write(std::ostream &out, JsFlags flags) const {
+void JsNumber::Write(std::ostream &out, JsFlags /*flags*/) const {
     out << val;
 }
 
@@ -47,7 +47,7 @@ bool JsString::Read(std::istream &in) {
     return true;
 }
 
-void JsString::Write(std::ostream &out, JsFlags flags) const {
+void JsString::Write(std::ostream &out, JsFlags /*flags*/) const {
     out << '\"' << val << '\"';
 }
 
@@ -267,7 +267,7 @@ bool JsLiteral::Read(std::istream &in) {
     return false;
 }
 
-void JsLiteral::Write(std::ostream &out, JsFlags flags) const {
+void JsLiteral::Write(std::ostream &out, JsFlags /*flags*/) const {
     if (val == JS_TRUE) {
         out << "true";
     } else if (val == JS_FALSE) {
@@ -490,7 +490,6 @@ bool JsElement::Read(std::istream &in) {
             return lit_->Read(in);
         }
     }
-    return false;
 }
 
 void JsElement::Write(std::ostream &out, JsFlags flags) const {
