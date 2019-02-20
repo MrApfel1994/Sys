@@ -4,33 +4,36 @@
 #undef NDEBUG
 #include <cassert>
 #include <cmath>
+#include <cstdio>
 
-#define assert_false(expr) assert(!expr)
+static void handle_assert(bool passed, const char* assert, const char* file, long line) {
+    if (!passed) {
+        printf("Assertion failed %s in %s at line %d\n", assert, file, (int)line);
+        exit(-1);
+    }
+}
 
-#ifndef __EMSCRIPTEN__
-#define assert_throws(expr) {           \
+#define require(x) handle_assert(x, #x , __FILE__, __LINE__ )
+
+#define require_throws(expr) {          \
             bool _ = false;             \
             try {                       \
-                (void)expr;             \
+                expr;                   \
             } catch (...) {             \
                 _ = true;               \
             }                           \
-            assert(_);                  \
+            require(_);                 \
         }
 
-#define assert_nothrow(expr) {          \
+#define require_nothrow(expr) {         \
             bool _ = false;             \
             try {                       \
-                (void)expr;             \
+                expr;                   \
             } catch (...) {             \
                 _ = true;               \
             }                           \
-            assert(!_);                 \
+            require(!_);                \
         }
-#else
-#define assert_throws(expr) {}
-#define assert_nothrow(expr) {}
-#endif
 
 class Approx {
 public:

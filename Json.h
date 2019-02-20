@@ -20,7 +20,7 @@ struct JsElement;
 struct JsNumber {
     double val;
 
-    JsNumber(double v = 0) : val(v) {}
+    explicit JsNumber(double v = 0) : val(v) {}
 
     bool operator==(const JsNumber &rhs) const {
         return val == rhs.val;
@@ -50,8 +50,8 @@ struct JsString {
     std::string val;
 
     JsString() {}
-    JsString(const char *s) : val(s) {}
-    JsString(const std::string &s) : val(s) {}
+    explicit JsString(const char *s) : val(s) {}
+    explicit JsString(const std::string &s) : val(s) {}
 
     bool operator==(const JsString &rhs) const {
         return val == rhs.val;
@@ -128,7 +128,7 @@ struct JsObject {
 struct JsLiteral {
     JsLiteralType val;
 
-    JsLiteral(JsLiteralType v) : val(v) {}
+    explicit JsLiteral(JsLiteralType v) : val(v) {}
     bool operator==(const JsLiteral &rhs) const {
         return val == rhs.val;
     }
@@ -155,10 +155,10 @@ private:
 
     void DestroyValue();
 public:
-    JsElement(double val);
-    JsElement(const char *str);
-    JsElement(JsLiteralType lit_type);
-    JsElement(JsType type);
+    explicit JsElement(double val);
+    explicit JsElement(const char *str);
+    explicit JsElement(JsLiteralType lit_type);
+    explicit JsElement(JsType type);
     JsElement(const JsNumber &rhs);
     JsElement(const JsString &rhs);
     JsElement(const JsArray &rhs);

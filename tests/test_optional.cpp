@@ -32,17 +32,17 @@ void test_optional() {
         };
 
         Sys::Optional<MyObj> v1;
-        assert_false(v1.initialized());
+        require(!v1.initialized());
         Sys::Optional<MyObj> v2(MyObj(11));
-        assert(v2.initialized());
+        require(v2.initialized());
         v1 = v2;
-        assert(v1.initialized());
-        assert(v2.initialized());
+        require(v1.initialized());
+        require(v2.initialized());
         v1 = v1;
-        assert(v1.initialized());
+        require(v1.initialized());
         v1 = std::move(v2);
-        assert(v1.initialized());
-        assert_false(v2.initialized());
+        require(v1.initialized());
+        require(!v2.initialized());
     }
 }
 

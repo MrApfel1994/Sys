@@ -28,7 +28,7 @@ void test_signal() {
             // Static func
             Sys::Delegate<double(int, float)> del;
             del.Bind<::static_func>();
-            assert(del(1, 2.4f) == Approx(3.4));
+            require(del(1, 2.4f) == Approx(3.4));
         }
 
         {
@@ -36,7 +36,7 @@ void test_signal() {
             Sys::Delegate<double(int, float)> del;
             AAA a;
             del.Bind<AAA, &AAA::member_func>(&a);
-            assert(del(2, 1.4f) == Approx(0.6));
+            require(del(2, 1.4f) == Approx(0.6));
         }
 
         {
@@ -45,7 +45,7 @@ void test_signal() {
             AAA a;
             const AAA &_a = a;
             del.Bind<AAA, &AAA::member_const_func>(&_a);
-            assert(del(2, 1.4f) == Approx(1.3));
+            require(del(2, 1.4f) == Approx(1.3));
         }
     }
 
@@ -59,18 +59,18 @@ void test_signal() {
         sig.Connect<AAA, &AAA::member_func>(&a);
         sig.Connect<AAA, &AAA::member_const_func>(&a);
 
-        assert(sig.size() == 3);
+        require(sig.size() == 3);
 
-        assert(sig.FireOne(0, 5, 2.2f) == Approx(7.2));
-        assert(sig.FireOne(1, 5, 2.2f) == Approx(2.8));
-        assert(sig.FireOne(2, 5, 2.2f) == Approx(3.9));
+        require(sig.FireOne(0, 5, 2.2f) == Approx(7.2));
+        require(sig.FireOne(1, 5, 2.2f) == Approx(2.8));
+        require(sig.FireOne(2, 5, 2.2f) == Approx(3.9));
 
-        assert(sig.FireL(4, 1.0f) == Approx(3.5));
+        require(sig.FireL(4, 1.0f) == Approx(3.5));
 
         std::vector<double> result = sig.FireV(4, 0.3f);
-        assert(result.size() == 3);
-        assert(result[0] == Approx(4.3));
-        assert(result[1] == Approx(3.7));
-        assert(result[2] == Approx(3.85));
+        require(result.size() == 3);
+        require(result[0] == Approx(4.3));
+        require(result[1] == Approx(3.7));
+        require(result[2] == Approx(3.85));
     }
 }
