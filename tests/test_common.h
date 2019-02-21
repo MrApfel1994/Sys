@@ -1,15 +1,15 @@
-#ifndef TEST_COMMON_H
-#define TEST_COMMON_H
+#pragma once
 
 #undef NDEBUG
 #include <cassert>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 
 static void handle_assert(bool passed, const char* assert, const char* file, long line) {
     if (!passed) {
         printf("Assertion failed %s in %s at line %d\n", assert, file, (int)line);
-        exit(-1);
+        std::exit(-1);
     }
 }
 
@@ -52,4 +52,3 @@ inline bool operator==(float val, const Approx &app) {
     return std::abs(val - app.val) < app.eps;
 }
 
-#endif

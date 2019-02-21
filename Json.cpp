@@ -143,7 +143,7 @@ JsElement &JsObject::operator[](const std::string &s) {
             return e.second;
         }
     }
-    elements.emplace_back(s, JS_NULL);
+    elements.emplace_back(s, JsLiteral{ JS_NULL });
     return elements.back().second;
 }
 
@@ -202,7 +202,7 @@ bool JsObject::Read(std::istream &in) {
         while (in.read(&c, 1) && isspace(c));
         in.seekg(-1, std::ios::cur);
 
-        elements.emplace_back(key.val, JS_NULL);
+        elements.emplace_back(key.val, JsLiteral{ JS_NULL });
         if (!elements.back().second.Read(in)) {
             return false;
         }

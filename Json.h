@@ -3,6 +3,7 @@
 #include <iosfwd>
 #include <list>
 #include <string>
+#include <utility>
 
 enum JsType { JS_OBJECT, JS_ARRAY, JS_NUMBER, JS_LITERAL, JS_STRING };
 enum JsLiteralType { JS_TRUE, JS_FALSE, JS_NULL };
